@@ -4,8 +4,11 @@ import "./index.css";
 
 // square
 class Square extends React.Component {
-    render() { //returns what you want to render on screen
-    return <button className="square">{this.props.value}</button>;
+  render() {
+    //returns what you want to render on screen
+    return <button className="square" onClick={function() {alert('click')}}>
+        {this.props.value}
+    </button>;
   }
 }
 
