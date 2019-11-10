@@ -4,23 +4,23 @@ import "./index.css";
 
 // SQUARE
 class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    //initialize state to keep status of Square
-    this.state = {
-      value: null
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   //initialize state to keep status of Square
+  //   this.state = {
+  //     value: null
+  //   };
+  // }
   render() {
     // render() returns React element(= explanation of what you want to render on screen)
     return (
-      <button
+      <button //button is build-in component
         className="square"
         onClick={() => {
-          this.setState({ value: "X" });
+          this.props.onClick();
         }}
       >
-        {this.state.value}
+        {this.props.value}
       </button>
     );
   }
@@ -28,9 +28,27 @@ class Square extends React.Component {
 
 // BOARD
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null) //this is private in board component so cannot change from other component
+    };
+  }
+
+  handleClick(i) {
+    const copySquares = this.state.squares.slice(); //copy original array
+    copySquares[i] = "X";
+    this.setState({ squares: copySquares });
+  }
+
   renderSquare(i) {
-    // pass value props to Square
-    return <Square value={i} />;
+    // pass value(=props) to each Square component
+    return (
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)} //pass function to Square component when clicked
+      />
+    );
   }
 
   render() {
@@ -71,4 +89,4 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(<Game />, document.getElementById("root")); // render Game in root
+ReactDOM.render(<Game />, document.getElementById("root")); // render Game component in root
