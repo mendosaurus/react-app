@@ -3,27 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 
 // SQUARE
-class Square extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   //initialize state to keep status of Square
-  //   this.state = {
-  //     value: null
-  //   };
-  // }
-  render() {
-    // render() returns React element(= explanation of what you want to render on screen)
-    return (
-      <button //button is build-in component
-        className="square"
-        onClick={() => {
-          this.props.onClick();
-        }}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+function Square(props) {
+  return (
+    //button is build-in component
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
 }
 
 // BOARD
@@ -36,9 +22,9 @@ class Board extends React.Component {
   }
 
   handleClick(i) {
-    const copySquares = this.state.squares.slice(); //copy original array
-    copySquares[i] = "X";
-    this.setState({ squares: copySquares });
+    const squares = this.state.squares.slice(); //copy original array
+    squares[i] = "X";
+    this.setState({ squares: squares });
   }
 
   renderSquare(i) {
